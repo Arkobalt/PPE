@@ -17,6 +17,7 @@ class PointDeTrace extends Point
     private $tempsCumule; // temps cumulé depuis le départ (en secondes)
     private $distanceCumulee; // distance cumulée depuis le départ (en Km)
     private $vitesse; // vitesse instantanée au point de passage (en Km/h)
+    
     // ------------------------------------------------------------------------------------------------------
     // ----------------------------------------- Constructeur -----------------------------------------------
     // ------------------------------------------------------------------------------------------------------
@@ -36,15 +37,16 @@ class PointDeTrace extends Point
         $uneDateHeure, $unRythmeCardio, $unTempsCumule, $uneDistanceCumulee, $uneVitesse) {
             // appelle le constructeur de la classe mère avec 3 paramètres
             parent::__construct($uneLatitude, $uneLongitude, $uneAltitude);
-            // initialise les nouveaux attributs
             $this->idTrace = $unIdTrace;
-            $this->id =$unID;
+            $this->id = $unID;
             $this->dateHeure = $uneDateHeure;
             $this->rythmeCardio = $unRythmeCardio;
             $this->tempsCumule = $unTempsCumule;
             $this->distanceCumulee = $uneDistanceCumulee;
             $this->vitesse = $uneVitesse;
+            
     }
+    
     // ------------------------------------------------------------------------------------------------------
     // ---------------------------------------- Getters et Setters ------------------------------------------
     // ------------------------------------------------------------------------------------------------------
@@ -66,8 +68,10 @@ class PointDeTrace extends Point
     
     public function getDistanceCumulee() {return $this->distanceCumulee;}
     public function setDistanceCumulee($uneDistanceCumulee) {$this->distanceCumulee = $uneDistanceCumulee;}
+    
     public function getVitesse() {return $this->vitesse;}
     public function setVitesse($uneVitesse) {$this->vitesse = $uneVitesse;}
+    
     
     // ------------------------------------------------------------------------------------------------------
     // ---------------------------------------- Méthodes d'instances ----------------------------------------
@@ -92,22 +96,26 @@ class PointDeTrace extends Point
     // Méthode fournissant le temps cumulé depuis le départ (sous la forme d'une chaine "hh:mm:ss")
     public function getTempsCumuleEnChaine()
     {
-       $heures = 0;
-       $minutes = 0;
-       $secondes = 0;
-       $tCumul = $this->getTempsCumule();
-       if ($tCumul > 3600){
-           $heures = $tCumul/3600;
-           $tCumul = $tCumul%3600;
-       }
-       if ($tCumul > 60){
-           $minutes = $tCumul/60;
-           $tCumul = $tCumul%60;
-       }
-       $secondes = $tCumul;
-        return sprintf("%02d", $heures ) . ":" . sprintf("%02d", $minutes ) . ":" . sprintf("%02d", $secondes );
+        $heures = 0;
+        $minutes = 0;
+        $secondes = 0;
+        $temps = $this->getTempsCumule();
+        if ($temps > 3600)
+        {
+            $heures = $temps / 3600;
+            $temps = $temps % 3600;
+            
+        }
+        if ($temps > 60)
+        {
+            $minutes = $temps / 60;
+            $temps = $temps % 60;
+            
+        }
+        $secondes = $temps;
+        
+        return sprintf("%02d",$heures) . ":" . sprintf("%02d",$minutes) . ":" . sprintf("%02d",$secondes);
     }
-    
 } // fin de la classe PointDeTrace
 // ATTENTION : on ne met pas de balise de fin de script pour ne pas prendre le risque
 // d'enregistrer d'espaces après la balise de fin de script !!!!!!!!!!!!
