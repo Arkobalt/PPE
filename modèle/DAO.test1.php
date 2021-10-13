@@ -31,15 +31,46 @@ include_once ('DAO.class.php');
 $dao = new DAO();
 
 
-// test de la méthode xxxxxxxxxxxxxxxxxxxxxxxxxxx ----------------------------------------------------------
-// modifié par xxxxxxxxxxxxxxxxx le xxxxxxxxxx
-echo "<h3>Test de xxxxxxxxxxxxxxxxx : </h3>";
-// A CONTINUER .........
+// test de la méthode existeAdrMailUtilisateur ----------------------------------------------------------
+// modifié par Baptiste de Bailliencourt le 12/10/2021
+echo "<h3>Test de existeAdrMailUtilisateur : </h3>";
+if ($dao->existeAdrMailUtilisateur("admin@gmail.com")) $existe = "oui"; else $existe = "non";
+echo "<p>Existence de l'utilisateur 'admin@gmail.com' : <b>" . $existe . "</b><br>";
+if ($dao->existeAdrMailUtilisateur("delasalle.sio.eleves@gmail.com")) $existe = "oui"; else $existe = "non";
+echo "Existence de l'utilisateur 'delasalle.sio.eleves@gmail.com' : <b>" . $existe . "</b></br>";
+
+// test de la méthode getLesUtilisateursAutorisant ----------------------------------------------------------
+// modifié par Baptiste de Bailliencourt le 12/10/2021
+echo "<h3>Test de getLesUtilisateursAutorisant(idUtilisateur) : </h3>";
+$lesUtilisateurs = $dao->getLesUtilisateursAutorisant(4);
+$nbReponses = sizeof($lesUtilisateurs);
+echo "<p>Nombre d'utilisateurs autorisant l'utilisateur 4 à voir leurs parcours : " . $nbReponses . "</p>";
+// affichage des utilisateurs
+foreach ($lesUtilisateurs as $unUtilisateur)
+{ echo ($unUtilisateur->toString());
+echo ('<br>');
+}
+
+// test de la méthode getLesUtilisateursAutorisants -------------------------------------------------
+// modifié par Baptiste de Bailliencourt le 12/10/2021
+echo "<h3>Test de getLesUtilisateursAutorises(idUtilisateur) : </h3>";
+$lesUtilisateurs = $dao->getLesUtilisateursAutorises(2);
+$nbReponses = sizeof($lesUtilisateurs);
+echo "<p>Nombre d'utilisateurs autorisés par l'utilisateur 2 : " . $nbReponses . "</p>";
+// affichage des utilisateurs
+foreach ($lesUtilisateurs as $unUtilisateur)
+{ echo ($unUtilisateur->toString());
+echo ('<br>');
+}
 
 
-
-
-
+// test de la méthode autoriseAConsulter ----------------------------------------------------------
+// modifié par Baptisye de Bailliencourt le 12/10/2021
+echo "<h3>Test de autoriseAConsulter : </h3>";
+if ($dao->autoriseAConsulter(2, 4)) $autorise = "oui"; else $autorise = "non";
+echo "<p>L'utilisateur 2 autorise l'utilisateur 4 : <b>" . $autorise . "</b><br>";
+if ($dao->autoriseAConsulter(4, 2)) $autorise = "oui"; else $autorise = "non";
+echo "<p>L'utilisateur 4 autorise l'utilisateur 2 : <b>" . $autorise . "</b><br>";
 
 
 
