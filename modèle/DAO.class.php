@@ -518,8 +518,10 @@ class DAO
             $uneAltitude = utf8_encode($uneLigne->altitude);
             $uneDateHeure = utf8_encode($uneLigne->dateHeure);
             $unRythmeCardio = utf8_encode($uneLigne->rythmeCardio);
-            
-            $unPointDeTrace = new PointDeTrace($unIdTrace, $unId, $uneLatitude, $uneLongitude, $uneAltitude, $uneDateHeure, $unRythmeCardio);
+            $unTempsCumule = 0;
+            $uneDistanceCumulee = 0;
+            $uneVitesse = 0;
+            $unPointDeTrace = new PointDeTrace($unIdTrace, $unId, $uneLatitude, $uneLongitude, $uneAltitude, $uneDateHeure, $unRythmeCardio, $unTempsCumule, $uneDistanceCumulee, $uneVitesse);
             // ajout de l'utilisateur à la collection
             $lesPointsDeTrace[] = $unPointDeTrace;
             // extrait la ligne suivante
@@ -532,8 +534,8 @@ class DAO
     }
     public function getLesTraces($idUtilisateur)
     {
-        $txt_req = "Select id, dateDebut, dateFin, terminee, idUtilisateur";
-        $txt_req .= " from tracegps_traces";
+        $txt_req = "Select id, dateDebut, dateFin, terminee, idUtilisateur, nbPoints";
+        $txt_req .= " from tracegps_vue_traces ";
         $txt_req .= " where idUtilisateur = :idUtilisateur";
         $txt_req .= " order by pseudo";
         
@@ -554,8 +556,16 @@ class DAO
             $uneDateFin = utf8_encode($uneLigne->dateFin);
             $terminee = utf8_encode($uneLigne->terminee);
             $unIdUtilisateur = utf8_encode($uneLigne->idUtilisateur);
+            $unNbPoints = utf8_encode($uneLigne->nbPoints);
             
             $uneTrace = new Trace($unId, $uneDateDebut, $uneDateFin, $terminee, $unIdUtilisateur);
+            $lesPointsDeTrace = array();
+            $lesPointsDeTrace = $this->getLesPointsDeTrace($unId);
+            foreach($lesPointsDeTrace as $unPointDeTrace)
+            {
+                $uneTrace->ajouterPoint($unPointDeTrace);
+            }
+            
             // ajout de l'utilisateur à la collection
             $lesTraces[] = $uneTrace;
             // extrait la ligne suivante
