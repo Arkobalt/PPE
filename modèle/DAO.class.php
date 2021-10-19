@@ -682,11 +682,25 @@ class DAO
     
     public function creerUnPointDeTrace($unPointDeTrace)
     {
+
+        $txt_req = "INSERT INTO tracegps_points(idTrace, id, latitude, longitude, altitude, dateHeure, rythmeCardio)";
+        $txt_req .= "VALUES(:idTrace,:id,:latitude,:longitude,:altitude,:dateHeure,:rythmeCardio)";
+        $req = $this->cnx->prepare($txt_req);
+        $req->bindValue("idTrace", $unPointDeTrace->getIdTrace(), PDO::PARAM_STR);
+        $req->bindValue("id", $unPointDeTrace->getId(), PDO::PARAM_STR);
+        $req->bindValue("latitude", $unPointDeTrace->getLatitude(), PDO::PARAM_STR);
+        $req->bindValue("longitude", $unPointDeTrace->getLongitude(), PDO::PARAM_STR);
+        $req->bindValue("altitude", $unPointDeTrace->getAltitude(), PDO::PARAM_STR);
+        $req->bindValue("dateHeure", $unPointDeTrace->getDateHeure(), PDO::PARAM_STR);
+        $req->bindValue("rythmeCardio", $unPointDeTrace->getRythmeCardio(), PDO::PARAM_STR);
         
+        $ok = $req->execute();
         
-    
+        // sortie en cas d'échec
+        if ( ! $ok) { return false; }
         
         return true;
+        
     }
     
     
