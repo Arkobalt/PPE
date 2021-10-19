@@ -65,12 +65,48 @@ echo ('<br>');
 
 
 // test de la méthode autoriseAConsulter ----------------------------------------------------------
-// modifié par Baptisye de Bailliencourt le 12/10/2021
+// modifié par Baptiste de Bailliencourt le 12/10/2021
 echo "<h3>Test de autoriseAConsulter : </h3>";
 if ($dao->autoriseAConsulter(2, 4)) $autorise = "oui"; else $autorise = "non";
 echo "<p>L'utilisateur 2 autorise l'utilisateur 4 : <b>" . $autorise . "</b><br>";
 if ($dao->autoriseAConsulter(4, 2)) $autorise = "oui"; else $autorise = "non";
 echo "<p>L'utilisateur 4 autorise l'utilisateur 2 : <b>" . $autorise . "</b><br>";
+
+
+// test de la méthode creerUneAutorisation ---------------------------------------------------------
+// modifié par Baptiste de Bailliencourt le 13/10/2021
+echo "<h3>Test de creerUneAutorisation : </h3>";
+if ($dao->creerUneAutorisation(11, 12)) $ok = "oui"; else $ok = "non";
+echo "<p>La création de l'autorisation de l'utilisateur 2 vers l'utilisateur 1 a réussi : <b>" . $ok . "</b><br>";
+// la même autorisation ne peut pas être enregistrée 2 fois
+if ($dao->creerUneAutorisation(11, 12)) $ok = "oui"; else $ok = "non";
+echo "<p>La création de l'autorisation de l'utilisateur 2 vers l'utilisateur 1 a réussi : <b>" . $ok . "</b><br>";
+
+
+// test de la méthode getLesPointsDeTrace ---------------------------------------------------------
+// modifié par Baptiste de Bailliencourt le 19/10/2021
+echo "<h3>Test de getLesPointsDeTrace : </h3>";
+$lesPoints = $dao->getLesPointsDeTrace(1);
+$nbPoints = sizeof($lesPoints);
+echo "<p>Nombre de points de la trace 1 : " . $nbPoints . "</p>";
+// affichage des points
+foreach ($lesPoints as $unPoint)
+{ echo ($unPoint->toString());
+echo ('<br>');
+}
+
+
+// test de la méthode getLesTraces($idUtilisateur) ------------------------------------------------
+// modifié par Baptiste de Bailliencourt le 13/10/2021
+echo "<h3>Test de getLesTraces(idUtilisateur) : </h3>";
+$lesTraces = $dao->getLesTraces(2);
+$nbReponses = sizeof($lesTraces);
+echo "<p>Nombre de traces de l'utilisateur 2 : " . $nbReponses . "</p>";
+// affichage des traces
+foreach ($lesTraces as $uneTrace)
+{ echo ($uneTrace->toString());
+echo ('<br>');
+}
 
 
 
