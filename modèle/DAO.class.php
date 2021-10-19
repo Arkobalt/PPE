@@ -534,7 +534,7 @@ class DAO
     }
     public function getLesTraces($idUtilisateur)
     {
-        $txt_req = "Select id, dateDebut, dateFin, terminee, idUtilisateur, nbPoints";
+        $txt_req = "Select id, dateDebut, dateFin, terminee, idUtilisateur";
         $txt_req .= " from tracegps_vue_traces ";
         $txt_req .= " where idUtilisateur = :idUtilisateur";
         $txt_req .= " order by pseudo";
@@ -556,7 +556,6 @@ class DAO
             $uneDateFin = utf8_encode($uneLigne->dateFin);
             $terminee = utf8_encode($uneLigne->terminee);
             $unIdUtilisateur = utf8_encode($uneLigne->idUtilisateur);
-            $unNbPoints = utf8_encode($uneLigne->nbPoints);
             
             $uneTrace = new Trace($unId, $uneDateDebut, $uneDateFin, $terminee, $unIdUtilisateur);
             $lesPointsDeTrace = array();
