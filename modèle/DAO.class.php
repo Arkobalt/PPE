@@ -571,6 +571,7 @@ class DAO
             // extrait la ligne suivante
             $uneLigne = $req->fetch(PDO::FETCH_OBJ);
         }
+        //commentaire
         // libère les ressources du jeu de données
         $req->closeCursor();
         // fourniture de la collection
