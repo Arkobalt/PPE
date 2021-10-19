@@ -868,11 +868,42 @@ class DAO
     // --------------------------------------------------------------------------------------
     // début de la zone attribuée au développeur 3 (xxxxxxxxxxxxxxxxxxxx) : lignes 750 à 949
     // --------------------------------------------------------------------------------------
+    public function getLesTracesAutorisees($idUtilisateur)
+    {
+        $idAutorisant = $this->getLesUtilisateursAutorisant($idUtilisateur);
+        $lesTraces = $this->getLesTraces($idAutorisant);
+        
+        return $lesTraces;
+    }
     
-    
-    
-    
-    
+    public function creerUneTrace($uneTrace)
+    {        
+        // préparation de la requête
+        $txt_req1 = "insert into tracegps_traces (dateDebut, dateFin,terminee,idUtilisateur)";
+        $txt_req1 .= " values (:dateDebut, :dateFin, :terminee, :idUtilisateur)";
+        $req1 = $this->cnx->prepare($txt_req1);
+        // liaison de la requête et de ses paramètres
+        $req1->bindValue("dateDebut", utf8_decode($uneTrace->getDateHeureDebut()), PDO::PARAM_STR);
+        if ($uneTrace->getDateHeureFin()==null) 
+        {
+            $req1->bindValue("dateFin", utf8_decode($uneTrace->getDateHeureFin()), PDO::PARAM_NULL);
+        }
+        else
+        {
+        $req1->bindValue("dateFin", utf8_decode($uneTrace->getDateHeureFin()), PDO::PARAM_STR);
+        }
+        $req1->bindValue("terminee", utf8_decode($uneTrace->getTerminee()), PDO::PARAM_STR);
+        $req1->bindValue("idUtilisateur", utf8_decode($uneTrace->getIdUtilisateur()), PDO::PARAM_STR);
+        // exécution de la requête
+        $ok = $req1->execute();
+        // sortir en cas d'échec
+        if ( ! $ok) { return false; }
+        
+        // recherche de l'identifiant (auto_increment) qui a été attribué à la trace
+        $unId = $this->cnx->lastInsertId();
+        $uneTrace->setId($unId);
+        return true;
+    }
     
     
     
