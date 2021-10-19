@@ -669,6 +669,20 @@ class DAO
         return true;
     }
     
+    public function creerUnPointDeTrace($unPointDeTrace)
+    {
+        
+        
+    
+        
+        return true;
+    }
+    
+    
+    
+    
+    
+    
     
     
     
