@@ -537,7 +537,6 @@ class DAO
         $txt_req = "Select id, dateDebut, dateFin, terminee, idUtilisateur";
         $txt_req .= " from tracegps_vue_traces ";
         $txt_req .= " where idUtilisateur = :idUtilisateur";
-        $txt_req .= " order by pseudo";
         
         $req = $this->cnx->prepare($txt_req);
         
