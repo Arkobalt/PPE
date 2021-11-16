@@ -1062,11 +1062,11 @@ class DAO
     {
         // préparation de la requête
         $txt_req1 = "UPDATE tracegps_traces ";
-        $txt_req1 .= "SET dateFin = :dateFin";
+        $txt_req1 .= "SET dateFin = :dateFin ";
         $txt_req1 .= "WHERE tracegps_traces.id = :idTrace;";
         
         $txt_req1 .= "UPDATE tracegps_traces ";
-        $txt_req1 .= "SET terminee = 1";
+        $txt_req1 .= "SET terminee = 1 ";
         $txt_req1 .= "WHERE tracegps_traces.id = :idTrace;";
         
         
@@ -1076,14 +1076,12 @@ class DAO
         if(sizeof($lesPointsDeTrace) == 0)
         {
             $uneDateFin = date('Y-m-d H:i:s');
-           $req1->bindValue("dateFin", utf8_decode($uneDateFin), PDO::PARAM_STR); 
         }
         else 
         { 
-            $uneDateFin = end($lesPointsDeTrace)->getDateHeure();
-            $req1->bindValue("dateFin", utf8_decode($uneDateFin), PDO::PARAM_STR);
+            $uneDateFin = end($lesPointsDeTrace)->getDateHeure();    
         }
-        
+        $req1->bindValue("dateFin", utf8_decode($uneDateFin), PDO::PARAM_STR);
         
         // exécution de la requête
         $ok = $req1->execute();
