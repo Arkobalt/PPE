@@ -99,6 +99,15 @@ echo ('<br>');
 // test de la méthode getLesTraces($idUtilisateur) ------------------------------------------------
 // modifié par Baptiste de Bailliencourt le 13/10/2021
 echo "<h3>Test de getLesTraces(idUtilisateur) : </h3>";
+$lesTraces = $dao->getLesTraces(1);
+$nbReponses = sizeof($lesTraces);
+echo "<p>Nombre de traces de l'utilisateur 1 : " . $nbReponses . "</p>";
+// affichage des traces
+foreach ($lesTraces as $uneTrace)
+{ echo ($uneTrace->toString());
+echo ('<br>');
+}
+
 $lesTraces = $dao->getLesTraces(2);
 $nbReponses = sizeof($lesTraces);
 echo "<p>Nombre de traces de l'utilisateur 2 : " . $nbReponses . "</p>";

@@ -70,9 +70,36 @@ echo "<p>Nombre de points de la trace 1 : " . $nbPoints . "</p>";
 echo ('<br>');
 
 
+// test de la méthode getUneTrace -----------------------------------------------------------------
+// modifié par Adil Wahid le 14/8/2021
+echo "<h3>Test de getUneTrace : </h3>";
+$uneTrace = $dao->getUneTrace(2);
+if ($uneTrace) {
+    echo "<p>La trace 2 existe : <br>" . $uneTrace->toString() . "</p>";
+}
+else {
+    echo "<p>La trace 2 n'existe pas !</p>";
+}
+$uneTrace = $dao->getUneTrace(100);
+if ($uneTrace) {
+    echo "<p>La trace 100 existe : <br>" . $uneTrace->toString() . "</p>";
+}
+else {
+    echo "<p>La trace 100 n'existe pas !</p>";
+}
 
 
-
+// test de la méthode getToutesLesTraces ----------------------------------------------------------
+// modifié par Adil Wahid le 14/8/2021
+echo "<h3>Test de getToutesLesTraces : </h3>";
+$lesTraces = $dao->getToutesLesTraces();
+$nbReponses = sizeof($lesTraces);
+echo "<p>Nombre de traces : " . $nbReponses . "</p>";
+// affichage des traces
+foreach ($lesTraces as $uneTrace)
+{ echo ($uneTrace->toString());
+echo ('<br>');
+}
 
 
 // ferme la connexion à MySQL :
