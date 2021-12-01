@@ -17,7 +17,7 @@ $code_reponse = 406;
 }
 else {
     // Les paramètres doivent être présents
-    if ( $pseudo == "" || $mdpSha1 == "" )
+    if ( $pseudo == "")
     {	
         $msg = "Erreur : données incomplètes.";
         $code_reponse = 400;
