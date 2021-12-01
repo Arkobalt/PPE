@@ -259,7 +259,7 @@ function creerFluxJSON($msg, $lesUtilisateurs)
     $elt_racine = ["data" => $elt_data];
     
     // retourne le contenu JSON (l'option JSON_PRETTY_PRINT gère les sauts de ligne et l'indentation)
-    return json_encode($elt_racine, JSON_PRETTY_PRINT);
+    return json_encode($elt_racine, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 }
 
 // ================================================================================================
