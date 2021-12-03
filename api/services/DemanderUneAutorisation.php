@@ -35,7 +35,7 @@ $code_reponse = 406;
 }
 else {
     // Les paramètres doivent être présents
-    if ($pseudo == '' || $mdp == '' || $pseudoDestinataire ='' || $texteMessage = '' || $nomPrenom = '' ) {
+    if ($pseudo == '' || $mdp == '' || $pseudoDestinataire == '' || $texteMessage == '' || $nomPrenom == '' ) {
         $msg = "Erreur : données incomplètes.";
         $code_reponse = 400;
     }
@@ -45,11 +45,10 @@ else {
             $code_reponse = 400;
         }
         else {
-            if ( $dao->existePseudoUtilisateur($pseudoDestinataire) ) {
+            if ( !$dao->existePseudoUtilisateur($pseudoDestinataire)){
                 $msg = "Erreur : pseudo utilisateur inexistant.";
                 $code_reponse = 400;
-            }
-            else {
+            }else {
                 global $ADR_MAIL_EMETTEUR;
                 $destinataire = $dao->getUnUtilisateur($pseudoDestinataire);
                 $sujet = "Demande d'autorisation de la part d'un utilisateur du système TraceGPS";
@@ -57,9 +56,8 @@ else {
                 if ( !$ok ) {
                     $msg = "Erreur : l'envoi du courriel de demande d'autorisation a rencontré un problème.";
                     $code_reponse = 500;
-                }
-                else {
-                    $msg = $nomPrenom."va recevoir un courriel avec votre demande.";
+                }else {
+                    $msg = $pseudoDestinataire." va recevoir un courriel avec votre demande.";
                     $code_reponse = 201;
                 }
             }
