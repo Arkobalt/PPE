@@ -50,9 +50,23 @@ else {
                 $code_reponse = 400;
             }else {
                 global $ADR_MAIL_EMETTEUR;
+                $demandeur = $dao->getUnUtilisateur($pseudo);
                 $destinataire = $dao->getUnUtilisateur($pseudoDestinataire);
                 $sujet = "Demande d'autorisation de la part d'un utilisateur du système TraceGPS";
-                $ok = Outils::envoyerMail($destinataire->getAdrMail(), $sujet, $texteMessage, $ADR_MAIL_EMETTEUR);
+                $contenuMail = "Cher ou chère " . $pseudoDestinataire . "\n\n";
+                $contenuMail .= "Un utilisateur du système TraceGPS vous demande l'autorisation de suivre vos parcours.\n\n";
+                $contenuMail .= "Voici les données le concernant.\n\n";
+                $contenuMail .= "Son pseudo : ".$pseudo."\n";
+                $contenuMail .= "Son adresse mail : ".$demandeur->getAdrMail()."\n";
+                $contenuMail .= "Son numéro de téléphone : ".$demandeur->getNumTel()."\n";
+                $contenuMail .= "Son nom et prénom : ".$nomPrenom."\n";
+                $contenuMail .= "Son message : ".$texteMessage."\n";
+                $contenuMail .= "Son pseudo : ".$pseudo."\n\n";
+                $contenuMail .= "Pour accepter la demande, cliquer sur ce lien :\n";
+                $contenuMail .= "http://localhost/ws-php-xxx/tracegps/api/ValiderDemandeAutorisation?a=".$mdp."&b=".$pseudoDestinataire."&c=".$pseudo."&d=1";
+                $contenuMail .= "Pour refuser la demande, cliquer sur ce lien :\n";
+                $contenuMail .= "http://localhost/ws-php-xxx/tracegps/api/ValiderDemandeAutorisation?a=".$mdp."&b=".$pseudoDestinataire."&c=".$pseudo."&d=0";
+                $ok = Outils::envoyerMail($destinataire->getAdrMail(), $sujet, $contenuMail , $ADR_MAIL_EMETTEUR);
                 if ( !$ok ) {
                     $msg = "Erreur : l'envoi du courriel de demande d'autorisation a rencontré un problème.";
                     $code_reponse = 500;
