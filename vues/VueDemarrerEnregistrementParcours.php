@@ -9,7 +9,6 @@
 <html>
 	<head>
 		<?php include_once ('vues/head.php'); ?>
-		
 		<script>
 		
 			// associe une fonction à l'événement pageinit
@@ -118,6 +117,11 @@
 						
 						<label for="txtAltitude">Altitude :</label>
 						<input type="text" name="txtAltitude" id="txtAltitude" readonly="readonly" data-mini="true" placeholder="Altitude" value="<?php echo $altitude; ?>">
+					</div>
+												
+					<div data-role="fieldcontain" data-type="horizontal" class="ui-hide-label">
+						<label for="caseEnvoieMail">Courriel automatique à tous les utilisateurs autorisé</label>
+						<input type="checkbox" name="caseEnvoieMail" id="caseEnvoieMail" data-mini="true" <?php if ($envoieMail == 'on') echo 'checked'; ?>>
 					</div>
 
 					<div data-role="fieldcontain">

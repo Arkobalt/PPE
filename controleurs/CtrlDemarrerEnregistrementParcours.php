@@ -18,6 +18,7 @@ else
         $altitude = '0';
         $frequence = '';
         $message = '';
+        $envoieMail= 'off';
         $typeMessage = '';			// 2 valeurs possibles : 'information' ou 'avertissement'
         $themeFooter = $themeNormal;
         include_once ('vues/VueDemarrerEnregistrementParcours.php');
@@ -28,6 +29,7 @@ else
         if ( empty ($_POST ["txtLongitude"]) == true)  $longitude = "";  else   $longitude = $_POST ["txtLongitude"];
         if ( empty ($_POST ["txtAltitude"]) == true)  $altitude = "0";  else   $altitude = $_POST ["txtAltitude"];
         if ( empty ($_POST ["btnFrequence"]) == true)  $frequence = "";  else   $frequence = $_POST ["btnFrequence"];
+        if ( empty ($_POST ["caseEnvoieMail"]) == true)  $envoieMail = "off";  else   $envoieMail = $_POST ["caseEnvoieMail"];
         
         if ($latitude == '' || $longitude == '' || $frequence == '')    // l'altitude n'est pas obligatoire
         {   // si les données sont incomplètes, réaffichage de la vue avec un message explicatif
@@ -39,6 +41,7 @@ else
         else
         {   // connexion du serveur web à la base MySQL
             include_once ('modele/DAO.class.php');
+
             $dao = new DAO();
             
             // récupération de l'id de l'utilisateur
@@ -60,12 +63,34 @@ else
             $unPoint = new PointDeTrace($idTrace, $idPoint, $latitude, $longitude, $altitude, $dateHeure, $rythmeCardio, $tempsCumule, $distanceCumulee, $vitesse);
             $ok = $dao->creerUnPointDeTrace($unPoint);
             
+            if ($envoieMail == 'on') 
+            {
+                $lesUtilisateursAutorises = $dao->getLesUtilisateursAutorises($idUtilisateurConsulte);
+                include_once ('modele/Outils.class.php');
+                $sujet = "$pseudo commence un nouveau tracé";
+                $adresseEmetteur = $dao->getUnUtilisateur($pseudo)->getAdrMail();
+                foreach ($lesUtilisateursAutorises as $unUtilisateurAutorise)
+                {
+                    $adresseDestinataire = $unUtilisateurAutorise->getAdrMail();
+                    $message =
+                    "Cher ou chère ".$unUtilisateurAutorise->getPseudo().",
+Vous avez demandé à $pseudo l'autorisation de consulter ses parcours.
+$pseudo vient de démarrer un nouveau parcours à $dateHeure.
+
+Cordialement.
+L'équipe TraceGPS.";
+                Outils::envoyerMail($adresseDestinataire, $sujet, $message, $adresseEmetteur);
+                }
+            }
+           
             unset($dao);		// fermeture de la connexion à MySQL
             
             // on mémorise les paramètres dans des variables de session
             $_SESSION['frequence'] = $frequence;
             $_SESSION['idTrace'] = $idTrace;
             $_SESSION['idPoint'] = $idPoint;
+            $_SESSION['caseEnvoieMail'] = $envoieMail;
+            
             
             // redirection vers la page d'envoi de la position
             header ("Location: index.php?action=EnvoyerPosition");
