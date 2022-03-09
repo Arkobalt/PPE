@@ -13,7 +13,7 @@
 // Le service retourne un flux de données XML ou JSON contenant un compte-rendu d'exécution
 
 // Les paramètres doivent être passés par la méthode GET :
-//     http://<hébergeur>/tracegps/api/ChangerDeMdppseudo=europa&mdp=13e3668bbee30b004380052b086457b014504b3e&nouveauMdp=123&confirmationMdp=123&lang=xml
+//     curl -i -X GET "http://localhost/ws-ppe-adil/tracegps/api/ChangerDeMdp?pseudo=europa&mdp=13e3668bbee30b004380052b086457b014504b3e&nouveauMdp=123&confirmationMdp=123&lang=xml"
 
 // connexion du serveur web à la base MySQL
 $dao = new DAO();
