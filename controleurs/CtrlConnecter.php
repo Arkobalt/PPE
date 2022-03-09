@@ -11,7 +11,6 @@
 // on teste si le terminal client est sous Android, pour lui proposer de télécharger l'application Android
 require_once 'Mobile_Detect.php';
 $detect = new Mobile_Detect;
-
 if ( $detect->isAndroidOS() ) $OS = "Android"; else $OS = "autre";
 
 $divCreerCompteDepliee = false;		// indique si la division doit être dépliée à l'affichage de la vue
