@@ -27,7 +27,7 @@ session_start();		// permet d'utiliser des variables de session
 
 // inclusion des paramètres de l'application
 include_once ('modele/parametres.php');
-
+include_once ('modele/Outils.class.php');
 // choix des styles graphiques
 $version = "1.4.5";			// choix de la version de JQuery Mobile (voir fichier head.php) : 1.2.0,  1.2.1,  1.3.2,  1.4.5
 $themeNormal = "a";			// thème de base

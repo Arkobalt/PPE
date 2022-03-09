@@ -297,6 +297,16 @@ class Outils
 		if ( preg_match ( $EXPRESSION , $numTelAvalider) == true || $numTelAvalider == "" ) return true; else return false;
 	}
 
+	
+	public static function estUnMdpValide($unMdp) {
+	    $EXPRESSION = "#^(?=.*[a-z].*$)(?=.*[A-Z].*$)(?=.*[0-9].*$)(?=.{8,}$)#";
+	    $ok = preg_match($EXPRESSION, $unMdp);
+	    if ($ok) {
+	        return true;
+	    } else {
+	        return false;
+	    }
+	}
 } // fin de la classe Outils
 
 // ATTENTION : on ne met pas de balise de fin de script pour ne pas prendre le risque
