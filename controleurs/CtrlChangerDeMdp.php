@@ -55,15 +55,6 @@ else {
                     // connexion du serveur web à la base MySQL
                     include_once ('modele/DAO.class.php');
                     $dao = new DAO();
-                    include_once('modele/Outils.class.php');
-                    if(Outils::estUneAdrMailValide($adrMail) == false || $adrMail != $dao->getUnUtilisateur($pseudo)->getAdrMail()){
-                        // si l'adresse mail saisie n'est pas valide
-                        $message = "L'adresse mail n'est pas valide !";
-                        $typeMessage = 'avertissement';
-                        $themeFooter = $themeProbleme;
-                        include_once ('vues/VueChangerDeMdp.php');
-                    }
-                    else {
                         
                         // enregistre le nouveau mot de passe de l'utilisateur dans la bdd après l'avoir codé en SHA1
                         $ok = $dao->modifierMdpUtilisateur ($pseudo, $nouveauMdp);
@@ -101,4 +92,3 @@ else {
             }
         }
     }
-}
