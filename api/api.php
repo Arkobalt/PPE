@@ -2,7 +2,7 @@
 // Projet TraceGPS - services web
 // Fichier : api/api.php
 // La classe Api hérite de la classe Rest (fichier api/rest.php)
-// Dernière mise à jour : 3/7/2021 par dP
+// Dernière mise à jour : 17/9/2021 par dP
 
 include_once ("rest.php");
 include_once ('../modele/DAO.class.php');
@@ -23,25 +23,25 @@ class Api extends Rest
         
         switch ($action) {
             // services web fournis
-            case "connecter" : {$this->Connecter(); break;}
-            case "changerdemdp" : {$this->ChangerDeMdp(); break;}
-            case "creerunutilisateur" : {$this->CreerUnUtilisateur(); break;}
-            case "gettouslesutilisateurs" : {$this->GetTousLesUtilisateurs(); break;}
-            case "supprimerunutilisateur" : {$this->SupprimerUnUtilisateur(); break;}
-            case "validerdemandeautorisation" : {$this->ValiderDemandeAutorisation(); break;}
+            case "connecter" : {$this->connecter(); break;}
+            case "changerdemdp" : {$this->changerDeMdp(); break;}
+            case "creerunutilisateur" : {$this->creerUnUtilisateur(); break;}
+            case "gettouslesutilisateurs" : {$this->getTousLesUtilisateurs(); break;}
+            case "supprimerunutilisateur" : {$this->supprimerUnUtilisateur(); break;}
+            case "validerdemandeautorisation" : {$this->validerDemandeAutorisation(); break;}
             
             // services web restant à développer
-            case "demandermdp" : {$this->DemanderMdp(); break;}
-            case "getlesparcoursdunutilisateur" : {$this->GetLesParcoursDunUtilisateur(); break;}
-            case "getlesutilisateursquejautorise" : {$this->GetLesUtilisateursQueJautorise(); break;}
-            case "getlesutilisateursquimautorisent" : {$this->GetLesUtilisateursQuiMautorisent(); break;}
-            case "getunparcoursetsespoints" : {$this->GetUnParcoursEtSesPoints(); break;}
-            case "retireruneautorisation" : {$this->RetirerUneAutorisation(); break;}
-            case "supprimerunparcours" : {$this->SupprimerUnParcours(); break;}
-            case "demanderuneautorisation" : {$this->DemanderUneAutorisation(); break;}
-            case "demarrerenregistrementparcours" : {$this->DemarrerEnregistrementParcours(); break;}
-            case "envoyerposition" : {$this->EnvoyerPosition(); break;}
-            case "arreterenregistrementparcours" : {$this->ArreterEnregistrementParcours(); break;}
+            case "demandermdp" : {$this->demanderMdp(); break;}
+            case "getlesparcoursdunutilisateur" : {$this->getLesParcoursDunUtilisateur(); break;}
+            case "getlesutilisateursquejautorise" : {$this->getLesUtilisateursQueJautorise(); break;}
+            case "getlesutilisateursquimautorisent" : {$this->getLesUtilisateursQuiMautorisent(); break;}
+            case "getunparcoursetsespoints" : {$this->getUnParcoursEtSesPoints(); break;}
+            case "retireruneautorisation" : {$this->retirerUneAutorisation(); break;}
+            case "supprimerunparcours" : {$this->supprimerUnParcours(); break;}
+            case "demanderuneautorisation" : {$this->demanderUneAutorisation(); break;}
+            case "demarrerenregistrementparcours" : {$this->demarrerEnregistrementParcours(); break;}
+            case "envoyerposition" : {$this->envoyerPosition(); break;}
+            case "arreterenregistrementparcours" : {$this->arreterEnregistrementParcours(); break;}
             
             // l'action demandée n'existe pas, la réponse est 404 ("Page not found") et aucune donnée n'est envoyée
             default : {
@@ -57,89 +57,89 @@ class Api extends Rest
     // services web fournis ===========================================================================================
     
     // Ce service permet permet à un utilisateur de s'authentifier
-    private function Connecter()
+    private function connecter()
     {   include_once ("services/Connecter.php");
     }
     
     // Ce service permet permet à un utilisateur de changer son mot de passe
-    private function ChangerDeMdp()
+    private function changerDeMdp()
     {   include_once ("services/ChangerDeMdp.php");
     }
     
     // Ce service permet permet à un utilisateur de se créer un compte
-    private function CreerUnUtilisateur()
+    private function creerUnUtilisateur()
     {   include_once ("services/CreerUnUtilisateur.php");
     }
     
     // Ce service permet à un utilisateur authentifié d'obtenir la liste de tous les utilisateurs (de niveau 1)
-    private function GetTousLesUtilisateurs()
+    private function getTousLesUtilisateurs()
     {   include_once ("services/GetTousLesUtilisateurs.php");
     }
     
     // Ce service permet à un administrateur de supprimer un utilisateur (à condition qu'il ne possède aucune trace enregistrée)
-    private function SupprimerUnUtilisateur()
+    private function supprimerUnUtilisateur()
     {   include_once ("services/SupprimerUnUtilisateur.php");
     }
     
     // Ce service permet à un utilisateur destinataire d'accepter ou de rejeter une demande d'autorisation provenant d'un utilisateur demandeur
-    private function ValiderDemandeAutorisation()
+    private function validerDemandeAutorisation()
     {   include_once ("services/ValiderDemandeAutorisation.php");
     }
     
     // services web restant à développer ==============================================================================
     
     // Ce service génère un nouveau mot de passe, l'enregistre en sha1 et l'envoie par mail à l'utilisateur
-    private function DemanderMdp()
+    private function demanderMdp()
     {   include_once ("services/DemanderMdp.php");
     }
     
     // Ce service permet à un utilisateur d'obtenir la liste de ses parcours ou la liste des parcours d'un utilisateur qui l'autorise
-    private function GetLesParcoursDunUtilisateur()
+    private function getLesParcoursDunUtilisateur()
     {   include_once ("services/GetLesParcoursDunUtilisateur.php");
     }
     
     // Ce service permet à un utilisateur d'obtenir la liste des utilisateurs qu'il autorise à consulter ses parcours
-    private function GetLesUtilisateursQueJautorise()
+    private function getLesUtilisateursQueJautorise()
     {   include_once ("services/GetLesUtilisateursQueJautorise.php");
     }
     
     // Ce service permet à un utilisateur d'obtenir la liste des utilisateurs qui l'autorisent à consulter leurs parcours
-    private function GetLesUtilisateursQuiMautorisent()
+    private function getLesUtilisateursQuiMautorisent()
     {   include_once ("services/GetLesUtilisateursQuiMautorisent.php");
     }
     
     // Ce service permet à un utilisateur d'obtenir le détail d'un de ses parcours ou d'un parcours d'un membre qui l'autorise
     private function getunparcoursetsespoints()
-    {   include_once ("services/GetUnParcoursEtSesPoints.php");
+    {   include_once ("services/getunparcoursetsespoints.php");
     }
     
     // Ce service permet à un utilisateur de supprimer une autorisation qu'il avait accordée à un autre utilisateur
-    private function RetirerUneAutorisation()
+    private function retirerUneAutorisation()
     {   include_once ("services/RetirerUneAutorisation.php");
     }
     
     // Ce service permet à un utilisateur de supprimer un de ses parcours 
-    private function SupprimerUnParcours()
+    private function supprimerUnParcours()
     {   include_once ("services/SupprimerUnParcours.php");
     }
     
     // Ce service permet à un utilisateur de demander une autorisation à un autre utilisateur
-    private function DemanderUneAutorisation()
+    private function demanderUneAutorisation()
     {   include_once ("services/DemanderUneAutorisation.php");
     }
     
     // Ce service permet à un utilisateur de démarrer l'enregistrement d'un parcours
-    private function DemarrerEnregistrementParcours()
+    private function demarrerEnregistrementParcours()
     {   include_once ("services/DemarrerEnregistrementParcours.php");
     }
     
     // Ce service permet à un utilisateur authentifié d'envoyer sa position
-    private function EnvoyerPosition()
+    private function envoyerPosition()
     {   include_once ("services/EnvoyerPosition.php");
     }
     
     // Ce service permet à un utilisateur de terminer l'enregistrement de son parcours
-    private function ArreterEnregistrementParcours()
+    private function arreterEnregistrementParcours()
     {   include_once ("services/ArreterEnregistrementParcours.php");
     }
 } // fin de la classe Api
