@@ -555,7 +555,6 @@ class DAO
             $uneDateFin = utf8_encode($uneLigne->dateFin);
             $terminee = utf8_encode($uneLigne->terminee);
             $unIdUtilisateur = utf8_encode($uneLigne->idUtilisateur);
-            
             $uneTrace = new Trace($unId, $uneDateDebut, $uneDateFin, $terminee, $unIdUtilisateur);
             $lesPointsDeTrace = array();
             $lesPointsDeTrace = $this->getLesPointsDeTrace($unId);
