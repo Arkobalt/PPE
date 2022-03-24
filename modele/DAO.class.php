@@ -1043,9 +1043,9 @@ class DAO
     public function supprimerUneTrace($idTrace)
     {   
         // préparation de la requête
-        $txt_req1 .= "DELETE FROM tracegps_points ";
+        $txt_req1 = "DELETE FROM tracegps_points ";
         $txt_req1 .= "WHERE tracegps_points.idTrace = :idTrace;";
-        $txt_req1 = "DELETE FROM tracegps_traces ";
+        $txt_req1 .= "DELETE FROM tracegps_traces ";
         $txt_req1 .= "WHERE tracegps_traces.id = :idTrace;";  
         
         $req1 = $this->cnx->prepare($txt_req1);
